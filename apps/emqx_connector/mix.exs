@@ -27,6 +27,7 @@ defmodule EMQXConnector.MixProject do
       {:emqx_resource, in_umbrella: true, runtime: false},
       {:epgsql, github: "epgsql/epgsql", tag: "4.4.0"},
       {:mysql, github: "emqx/mysql-otp", tag: "1.7.1"},
+      {:emqtt, github: "emqx/emqtt", tag: "1.4.3"},
       # {:ecpool, github: "emqx/ecpool", tag: "0.5.1"},
       # {:emqtt, github: "emqx/emqtt", tag: "1.4.3"}
     ]

@@ -29,7 +29,7 @@ defmodule EMQXExhook.MixProject do
   defp deps do
     [
       {:emqx, in_umbrella: true, runtime: false},
-      # {:grpc, github: "emqx/grpc-erl", tag: "0.6.2"}
+      {:grpc, github: "emqx/grpc-erl", tag: "0.6.2"},
     ]
   end
 

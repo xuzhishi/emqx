@@ -54,8 +54,8 @@ defmodule EMQXGateway.MixProject do
     [
       # {:gpb, "4.19.1", runtime: false},
       {:emqx, in_umbrella: true, runtime: false},
+      {:grpc, github: "emqx/grpc-erl", tag: "0.6.2"},
       # {:lwm2m_coap, github: "emqx/lwm2m-coap", tag: "v2.0.0"},
-      # {:grpc, github: "emqx/grpc-erl", tag: "0.6.2"},
       # {:esockd, github: "emqx/esockd", tag: "5.7.4"}
     ]
   end

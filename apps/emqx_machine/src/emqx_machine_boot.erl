@@ -27,8 +27,8 @@
 -endif.
 
 post_boot() ->
-    io:format(user, ">>>>>>>>>>>>>>>>>>>> roots ~p~n",
-              [emqx_conf_schema:roots()]),
+    %% io:format(user, ">>>>>>>>>>>>>>>>>>>> roots ~p~n",
+    %%           [emqx_conf_schema:roots()]),
     ok = ensure_apps_started(),
     _ = emqx_plugins:load(),
     ok = print_vsn(),
@@ -110,7 +110,9 @@ reboot_apps() ->
 
 sorted_reboot_apps() ->
     Apps = [{App, app_deps(App)} || App <- reboot_apps()],
-    sorted_reboot_apps(Apps).
+    Res = sorted_reboot_apps(Apps),
+    io:format(user, "~n>>>>>>>>>>>>>> sorted_reboot_apps~n ~100p~n", [Res]),
+    Res.
 
 app_deps(App) ->
     case application:get_key(App, applications) of
@@ -121,7 +123,13 @@ app_deps(App) ->
 sorted_reboot_apps(Apps) ->
     G = digraph:new(),
     try
-        lists:foreach(fun({App, Deps}) -> add_app(G, App, Deps) end, Apps),
+        lists:foreach(fun({App, Deps}) ->
+                              ?SLOG(warning, #{ msg => ">>>>>> machine_boot:add_app"
+                                              , app => App
+                                              , deps => Deps
+                                              }),
+                              add_app(G, App, Deps)
+                      end, Apps),
         case digraph_utils:topsort(G) of
             Sorted when is_list(Sorted) ->
                 Sorted;

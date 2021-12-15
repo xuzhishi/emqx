@@ -16,17 +16,17 @@ defmodule EMQXRetainer.MixProject do
     ]
   end
 
-  def application do
-    [
-      registered: [:emqx_retainer_sup],
-      mod: {:emqx_retainer_app, []},
-      # extra_applications: [:logger]
-    ]
-  end
+  # def application do
+  #   [
+  #     registered: [:emqx_retainer_sup],
+  #     mod: {:emqx_retainer_app, []},
+  #     # extra_applications: [:logger]
+  #   ]
+  # end
 
   defp deps do
     [
-      # {:emqx, in_umbrella: true, runtime: false}
+      {:emqx, in_umbrella: true, runtime: false}
     ]
   end
 end

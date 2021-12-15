@@ -25,6 +25,8 @@
 
 %% @doc EMQ X boot entrypoint.
 start() ->
+    ?SLOG(warning, #{ msg => ">>>>>>>>> machine:start enter"
+                    }),
     case os:type() of
         {win32, nt} -> ok;
         _nix ->
