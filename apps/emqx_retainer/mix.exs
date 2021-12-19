@@ -1,5 +1,6 @@
 defmodule EMQXRetainer.MixProject do
   use Mix.Project
+  Code.require_file("../../lib/emqx/mix/common.ex")
 
   def project do
     [
@@ -10,23 +11,24 @@ defmodule EMQXRetainer.MixProject do
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
       elixir: "~> 1.12",
-      start_permanent: Mix.env() == :prod,
+      # start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: "EMQ X Retainer"
     ]
   end
 
-  # def application do
-  #   [
-  #     registered: [:emqx_retainer_sup],
-  #     mod: {:emqx_retainer_app, []},
-  #     # extra_applications: [:logger]
-  #   ]
-  # end
+  def application do
+    [
+      registered: [:emqx_retainer_sup],
+      mod: {:emqx_retainer_app, []},
+      applications: EMQX.Mix.Common.erl_apps(:emqx_retainer),
+      # extra_applications: [:emqx],
+    ]
+  end
 
   defp deps do
     [
-      {:emqx, in_umbrella: true, runtime: false}
+      {:emqx, in_umbrella: true}
     ]
   end
 end

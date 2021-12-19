@@ -1,5 +1,6 @@
 defmodule EMQXDashboard.MixProject do
   use Mix.Project
+  Code.require_file("../../lib/emqx/mix/common.ex")
 
   def project do
     [
@@ -20,6 +21,7 @@ defmodule EMQXDashboard.MixProject do
     [
       registered: [:emqx_dashboard_sup],
       mod: {:emqx_dashboard_app, []},
+      applications: EMQX.Mix.Common.from_erl!(:emqx_dashboard, :applications),
       extra_applications: [:logger]
     ]
   end

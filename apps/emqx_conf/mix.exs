@@ -1,5 +1,6 @@
 defmodule EMQXConf.MixProject do
   use Mix.Project
+  Code.require_file("../../lib/emqx/mix/common.ex")
 
   def project do
     [
@@ -19,6 +20,8 @@ defmodule EMQXConf.MixProject do
   def application do
     [
       mod: {:emqx_conf_app, []},
+      # applications: EMQX.Mix.Common.erl_apps(:emqx_conf),
+      # included_applications: [:hocon],
       # extra_applications: [:logger, :os_mon, :syntax_tools]
     ]
   end
@@ -26,7 +29,7 @@ defmodule EMQXConf.MixProject do
   defp deps do
     [
       {:emqx, in_umbrella: true, runtime: false},
-      # {:hocon, github: "emqx/hocon"}
+      {:hocon, github: "emqx/hocon", tag: "0.22.0"},
     ]
   end
 end

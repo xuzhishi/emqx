@@ -1,5 +1,6 @@
 defmodule EMQXStatsd.MixProject do
   use Mix.Project
+  Code.require_file("../../lib/emqx/mix/common.ex")
 
   def project do
     [
@@ -19,6 +20,7 @@ defmodule EMQXStatsd.MixProject do
   def application do
     [
       mod: {:emqx_statsd_app, []},
+      applications: EMQX.Mix.Common.from_erl!(:emqx_statsd, :applications),
       extra_applications: [:logger]
     ]
   end

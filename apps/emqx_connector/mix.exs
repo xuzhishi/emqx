@@ -1,5 +1,6 @@
 defmodule EMQXConnector.MixProject do
   use Mix.Project
+  Code.require_file("../../lib/emqx/mix/common.ex")
 
   def project do
     [
@@ -18,6 +19,7 @@ defmodule EMQXConnector.MixProject do
   def application do
     [
       mod: {:emqx_connector_app, []},
+      applications: EMQX.Mix.Common.from_erl!(:emqx_connector, :applications),
       extra_applications: [:logger]
     ]
   end
@@ -28,6 +30,8 @@ defmodule EMQXConnector.MixProject do
       {:epgsql, github: "epgsql/epgsql", tag: "4.4.0"},
       {:mysql, github: "emqx/mysql-otp", tag: "1.7.1"},
       {:emqtt, github: "emqx/emqtt", tag: "1.4.3"},
+      {:eredis_cluster, github: "emqx/eredis_cluster", tag: "0.6.7"},
+      {:mongodb, github: "emqx/mongodb-erlang", tag: "v3.0.10"},
       # {:ecpool, github: "emqx/ecpool", tag: "0.5.1"},
       # {:emqtt, github: "emqx/emqtt", tag: "1.4.3"}
     ]

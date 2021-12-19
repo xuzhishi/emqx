@@ -110,14 +110,37 @@ reboot_apps() ->
 
 sorted_reboot_apps() ->
     Apps = [{App, app_deps(App)} || App <- reboot_apps()],
+    ?SLOG(warning, #{ msg => "sorted_reboot_apps/0 before /1"
+                    , apps => Apps
+                    }),
     Res = sorted_reboot_apps(Apps),
     io:format(user, "~n>>>>>>>>>>>>>> sorted_reboot_apps~n ~100p~n", [Res]),
-    Res.
+    Res,
+    %% FIXME!!!!!  For some reason, emqx_conf appears in the
+    %% `applications` key in resource, but it is not there in the
+    %% .app.src...
+    Res0 = [emqx_conf,gproc,esockd,ranch,cowboy,emqx,emqx_prometheus,emqx_modules,emqx_dashboard,
+     emqx_gateway,emqx_management,emqx_retainer,emqx_statsd,emqx_resource,emqx_connector,emqx_bridge,
+     emqx_authn,emqx_authz,emqx_exhook],
+    case true of
+        true ->
+            Res;
+        false ->
+            Res0
+    end.
 
 app_deps(App) ->
     case application:get_key(App, applications) of
         undefined -> [];
-        {ok, List} -> lists:filter(fun(A) -> lists:member(A, reboot_apps()) end, List)
+        {ok, List} ->
+            ?SLOG(warning, #{ msg => ">>>>>> machine_boot:add_deps"
+                            , app => App
+                            , apps => List
+                            , included => application:get_key(App, included_applications)
+                            }),
+            lists:filter(fun(A) ->
+                                 lists:member(A, reboot_apps())
+                         end, List)
     end.
 
 sorted_reboot_apps(Apps) ->

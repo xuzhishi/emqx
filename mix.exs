@@ -1,6 +1,8 @@
 defmodule EMQXUmbrella.MixProject do
   use Mix.Project
 
+  Code.load_file("./mix_release.exs")
+
   def project do
     [
       apps_path: "apps",
@@ -107,6 +109,7 @@ defmodule EMQXUmbrella.MixProject do
           compiler: :permanent,
           runtime_tools: :permanent,
           # emqx_conf: :permanent,
+          # hocon: :load,
           emqx: :load,
           emqx_conf: :load, # as per rebar.config.erl
           emqx_machine: :permanent,
@@ -119,7 +122,7 @@ defmodule EMQXUmbrella.MixProject do
           emqx_connector: :permanent,
           emqx_authn: :permanent,
           emqx_authz: :permanent,
-          # emqx_auto_subscribe: :permanent,
+          emqx_auto_subscribe: :permanent,
           emqx_gateway: :permanent,
           emqx_exhook: :permanent,
           emqx_bridge: :permanent,
@@ -128,13 +131,13 @@ defmodule EMQXUmbrella.MixProject do
           emqx_management: :permanent,
           emqx_dashboard: :permanent,
           emqx_statsd: :permanent,
-          # emqx_retainer: :permanent,
-          emqx_retainer: :none,
+          emqx_retainer: :permanent,
+          # emqx_retainer: :none,
           emqx_prometheus: :permanent,
-          # emqx_psk: :permanent,
-          emqx_psk: :none,
-          # emqx_limiter: :permanent,
-          emqx_limiter: :none,
+          emqx_psk: :permanent,
+          # emqx_psk: :none,
+          emqx_limiter: :permanent,
+          # emqx_limiter: :none,
           observer: :load,
           # emqx_mix: :none,
         ],

@@ -1,5 +1,6 @@
 defmodule EMQXResource.MixProject do
   use Mix.Project
+  Code.require_file("../../lib/emqx/mix/common.ex")
 
   def project do
     [
@@ -11,7 +12,7 @@ defmodule EMQXResource.MixProject do
       lockfile: "../../mix.lock",
       elixir: "~> 1.12",
       # start_permanent: Mix.env() == :prod,
-      start_permanent: false,
+      # start_permanent: false,
       deps: deps()
     ]
   end
@@ -19,7 +20,8 @@ defmodule EMQXResource.MixProject do
   def application do
     [
       mod: {:emqx_resource_app, []},
-      extra_applications: [:logger, :syntax_tools]
+      applications: EMQX.Mix.Common.erl_apps(:emqx_resource),
+      # extra_applications: [:emqx, :emqx_conf],
     ]
   end
 
@@ -28,7 +30,8 @@ defmodule EMQXResource.MixProject do
       # {:jsx, "3.1.0"},
       # {:gproc, "0.9.0"},
       {:hocon, github: "emqx/hocon", tag: "0.22.0", runtime: false},
-      {:emqx, in_umbrella: true, runtime: false}
+      {:emqx, in_umbrella: true},
+      {:emqx_conf, in_umbrella: true},
     ]
   end
 end

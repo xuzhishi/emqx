@@ -1,5 +1,6 @@
 defmodule EMQXManagement.MixProject do
   use Mix.Project
+  Code.require_file("../../lib/emqx/mix/common.ex")
 
   def project do
     [
@@ -20,6 +21,7 @@ defmodule EMQXManagement.MixProject do
     [
       registered: [:emqx_management_sup],
       mod: {:emqx_mgmt_app, []},
+      applications: EMQX.Mix.Common.from_erl!(:emqx_management, :applications),
       extra_applications: [:logger, :syntax_tools]
     ]
   end

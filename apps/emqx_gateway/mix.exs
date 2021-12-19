@@ -1,5 +1,6 @@
 defmodule EMQXGateway.MixProject do
   use Mix.Project
+  Code.require_file("../../lib/emqx/mix/common.ex")
 
   def project do
     [
@@ -22,6 +23,7 @@ defmodule EMQXGateway.MixProject do
     [
       registered: [],
       mod: {:emqx_gateway_app, []},
+      applications: EMQX.Mix.Common.from_erl!(:emqx_gateway, :applications),
       extra_applications: [:logger]
     ]
   end

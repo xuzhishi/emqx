@@ -10,7 +10,7 @@ defmodule EMQXPrometheus.MixProject do
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
       elixir: "~> 1.12",
-      start_permanent: Mix.env() == :prod,
+      # start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: "Prometheus for EMQ X"
     ]
@@ -26,7 +26,7 @@ defmodule EMQXPrometheus.MixProject do
 
   defp deps do
     [
-      {:emqx, in_umbrella: true, runtime: false},
+      {:emqx, in_umbrella: true},
       {:prometheus, github: "emqx/prometheus.erl", tag: "v3.1.1"}
     ]
   end

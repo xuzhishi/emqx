@@ -1,5 +1,6 @@
 defmodule EMQX.MixProject do
   use Mix.Project
+  Code.require_file("../../lib/emqx/mix/common.ex")
 
   def project do
     [
@@ -19,6 +20,7 @@ defmodule EMQX.MixProject do
   def application do
     [
       mod: {:emqx_app, []},
+      applications: EMQX.Mix.Common.erl_apps(:emqx),
       extra_applications: [:logger, :os_mon, :syntax_tools]
     ]
   end
@@ -33,7 +35,7 @@ defmodule EMQX.MixProject do
       {:ekka, github: "emqx/ekka", tag: "0.11.1"},
       # {:gen_rpc, github: "emqx/gen_rpc", tag: "2.5.1"},
       # {:cuttlefish, github: "emqx/cuttlefish", tag: "v4.0.1"},
-      {:hocon, github: "emqx/hocon", tag: "0.22.0"},
+      {:hocon, github: "emqx/hocon", tag: "0.22.0", runtime: false},
       # {:pbkdf2, github: "emqx/erlang-pbkdf2", tag: "2.0.4"},
       # {:snabbkaffe, github: "kafka4beam/snabbkaffe", tag: "0.14.0"},
       # {:jiffy, github: "emqx/jiffy", tag: "1.0.5"},

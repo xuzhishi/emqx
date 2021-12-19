@@ -1,9 +1,12 @@
 defmodule EMQXAuthz.MixProject do
   use Mix.Project
+  Code.require_file("../../lib/emqx/mix/common.ex")
+
+  @app :emqx_authz
 
   def project do
     [
-      app: :emqx_authz,
+      app: @app,
       version: "0.1.0",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
@@ -17,6 +20,8 @@ defmodule EMQXAuthz.MixProject do
 
   def application do
     [
+      mod: EMQX.Mix.Common.from_erl!(@app, :mod),
+      applications: EMQX.Mix.Common.from_erl!(@app, :applications),
       extra_applications: [:logger]
     ]
   end
