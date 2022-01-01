@@ -28,7 +28,7 @@ ARG EMQX_NAME=emqx
 
 RUN cd /emqx \
     && rm -rf _build/$EMQX_NAME/lib \
-    && make $EMQX_NAME
+    && EMQX_EXTRA_PLUGINS=ezlinker_p2p_plugin make $EMQX_NAME
 
 FROM $RUN_FROM
 
