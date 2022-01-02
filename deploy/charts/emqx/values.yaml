@@ -90,6 +90,7 @@ emqxLoadedPlugins: >
   {emqx_telemetry, true}.
   {emqx_rule_engine, true}.
   {emqx_bridge_mqtt, false}.
+  {ezlinker_p2p_plugin, true}.
 
 emqxLoadedModules: >
   {emqx_mod_acl_internal, true}.
