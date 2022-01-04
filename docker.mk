@@ -5,8 +5,8 @@
 ## when built with `make docker` command the default profile is either emqx or emqx-ee (for enterprise)
 ## or the TARGET varialbe can be set beforehand to force a different name
 TARGET ?= emqx/$(PROFILE)
-QEMU_ARCH ?= x86_64
-ARCH ?= amd64
+QEMU_ARCH ?= aarch64	# x86_64
+ARCH ?= arm64v8				# amd64
 QEMU_VERSION ?= v5.0.0-2
 OS ?= alpine
 export PKG_VSN ?= $(shell $(CURDIR)/pkg-vsn.sh)
@@ -54,7 +54,8 @@ docker-build:
 
 	## Prepare qemu to build images other then x86_64 on travis
 	@echo "PREPARE: Qemu" \
-	&& docker run --rm --privileged multiarch/qemu-user-static:register --reset
+	&& docker run --rm --privileged aptman/qus -s -- -p
+	# && docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
 	@mkdir -p tmp \
 	&& cd tmp \
